@@ -4,6 +4,7 @@ import 'package:j8coffe/presentation/screens/qr_scanner.dart';
 import 'package:j8coffe/presentation/screens/send.dart';
 import 'package:j8coffe/presentation/screens/success.dart';
 
+import 'buycoffe.dart';
 import 'home.dart';
 
 /// This is the stateful widget that the main application instantiates.
@@ -22,7 +23,7 @@ class _BaseScreenState extends State<BaseScreen> {
   List<Widget> _widgetOptions = <Widget>[
     SendScreen(),
     HomeScreen(),
-    QRViewExample(),
+    BuyCoffeScreen(),
   ];
 
   void _onItemTapped(int index) {
