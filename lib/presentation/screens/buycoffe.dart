@@ -5,17 +5,23 @@ import 'package:j8coffe/presentation/screens/success.dart';
 import 'package:j8coffe/presentation/screens/unlock.dart';
 
 class BuyCoffeScreen extends StatefulWidget {
+  String _machineAddr = "";
+  BuyCoffeScreen(String addr) {
+    this._machineAddr = addr;
+  }
+
   @override
-  _BuyCoffeScreenState createState() => _BuyCoffeScreenState();
+  _BuyCoffeScreenState createState() => _BuyCoffeScreenState(this._machineAddr);
 }
 
 class _BuyCoffeScreenState extends State<BuyCoffeScreen> {
   TextEditingController _addrCtrl = new TextEditingController();
   TextEditingController _amountCtrl = new TextEditingController();
-  TextEditingController _buttonLabel =
-      new TextEditingController(text: "Send TX");
 
-  int _state = 0;
+  String _machineAddr = "";
+  _BuyCoffeScreenState(String addr) {
+    this._machineAddr = addr;
+  }
 
   String accAddr = "Loading";
   String balance = "0.00";
@@ -40,10 +46,9 @@ class _BuyCoffeScreenState extends State<BuyCoffeScreen> {
   }
 
   void parseAndSendTrx() {
-    if (_state == 0) {
       double amount = double.parse(_amountCtrl.text);
       _requestPinToSend(context, amount);
-    }
+  
   }
 
   @override
@@ -87,7 +92,7 @@ class _BuyCoffeScreenState extends State<BuyCoffeScreen> {
                       style: TextStyle(fontSize: 20.0),
                     ),
                     Text(
-                      'Twxasksgnwwkwjwjlhwglwghwj',
+                      this._machineAddr,
                       style: TextStyle(fontSize: 20.0),
                     ),
                     SizedBox(
@@ -104,7 +109,7 @@ class _BuyCoffeScreenState extends State<BuyCoffeScreen> {
                                       primary: Colors.white,
                                       backgroundColor: Colors.red),
                                   onPressed: () {},
-                                  child: Text('TextButton'),
+                                  child: Text('Capuccino'),
                                 ))),
                         Expanded(
                             child: Container(
@@ -115,7 +120,7 @@ class _BuyCoffeScreenState extends State<BuyCoffeScreen> {
                                       primary: Colors.white,
                                       backgroundColor: Colors.red),
                                   onPressed: () {},
-                                  child: Text('TextButton'),
+                                  child: Text('Latte'),
                                 ))),
                       ],
                     ),
@@ -130,7 +135,7 @@ class _BuyCoffeScreenState extends State<BuyCoffeScreen> {
                                       primary: Colors.white,
                                       backgroundColor: Colors.red),
                                   onPressed: () {},
-                                  child: Text('TextButton'),
+                                  child: Text('Chocolate'),
                                 ))),
                         Expanded(
                             child: Container(
@@ -141,7 +146,7 @@ class _BuyCoffeScreenState extends State<BuyCoffeScreen> {
                                       primary: Colors.white,
                                       backgroundColor: Colors.red),
                                   onPressed: () {},
-                                  child: Text('TextButton'),
+                                  child: Text('Latte & Chocolate'),
                                 ))),
                       ],
                     ),

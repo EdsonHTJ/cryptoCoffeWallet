@@ -23,7 +23,7 @@ class _BaseScreenState extends State<BaseScreen> {
   List<Widget> _widgetOptions = <Widget>[
     SendScreen(),
     HomeScreen(),
-    BuyCoffeScreen(),
+    QRScreen(),
   ];
 
   void _onItemTapped(int index) {

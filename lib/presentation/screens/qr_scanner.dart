@@ -3,17 +3,18 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:j8coffe/presentation/screens/buycoffe.dart';
 import 'package:j8coffe/repository/crypto/trx.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
-class QRViewExample extends StatefulWidget {
-  const QRViewExample({Key? key}) : super(key: key);
+class QRScreen extends StatefulWidget {
+  const QRScreen({Key? key}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _QRViewExampleState();
+  State<StatefulWidget> createState() => _QRScreen();
 }
 
-class _QRViewExampleState extends State<QRViewExample> {
+class _QRScreen extends State<QRScreen> {
   Barcode? result;
   QRViewController? controller;
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
@@ -69,6 +70,10 @@ class _QRViewExampleState extends State<QRViewExample> {
       setState(() {
         print(scanData.code);
         print(validateAddress(scanData.code!));
+        if(validateAddress(scanData.code!)) {
+          controller!.pauseCamera();
+          _navigateToNextScreen(context, scanData.code!);
+        }
         result = scanData;
       });
     });
@@ -89,3 +94,8 @@ class _QRViewExampleState extends State<QRViewExample> {
     super.dispose();
   }
 }
+
+void _navigateToNextScreen(BuildContext context, String addr) {
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => BuyCoffeScreen(addr)));
+  }
