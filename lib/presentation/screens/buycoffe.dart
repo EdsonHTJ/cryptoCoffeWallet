@@ -46,113 +46,113 @@ class _BuyCoffeScreenState extends State<BuyCoffeScreen> {
   }
 
   void parseAndSendTrx() {
-      double amount = double.parse(_amountCtrl.text);
-      _requestPinToSend(context, amount);
-  
+    double amount = double.parse(_amountCtrl.text);
+    _requestPinToSend(context, amount);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.red,
+          centerTitle: true,
+          title: Text("Buy Coffe"),
+        ),
         body: SingleChildScrollView(
-            child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-          Center(
-            child: Container(
-              padding: EdgeInsets.all(20.0),
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    SizedBox(
-                      height: 120,
-                    ),
-                    FittedBox(
-                        fit: BoxFit.fitWidth,
-                        child: Text(
-                          accAddr,
-                          style: TextStyle(fontSize: 20),
-                        )),
-                    SizedBox(
-                      height: 16,
-                    ),
-                    Text(
-                      "Balance:",
-                      style: TextStyle(fontSize: 20.0),
-                    ),
-                    Text(
-                      balance,
-                      style: TextStyle(fontSize: 20.0),
-                    ),
-                    SizedBox(
-                      height: 16,
-                    ),
-                    Text(
-                      'Coffe Machine Address:',
-                      style: TextStyle(fontSize: 20.0),
-                    ),
-                    Text(
-                      this._machineAddr,
-                      style: TextStyle(fontSize: 20.0),
-                    ),
-                    SizedBox(
-                      height: 16,
-                    ),
-                    Row(
-                      children: [
-                        Expanded(
-                            child: Container(
-                                height: 100,
-                                padding: EdgeInsets.all(5),
-                                child: TextButton(
-                                  style: TextButton.styleFrom(
-                                      primary: Colors.white,
-                                      backgroundColor: Colors.red),
-                                  onPressed: () {},
-                                  child: Text('Capuccino'),
-                                ))),
-                        Expanded(
-                            child: Container(
-                                height: 100,
-                                padding: EdgeInsets.all(5),
-                                child: TextButton(
-                                  style: TextButton.styleFrom(
-                                      primary: Colors.white,
-                                      backgroundColor: Colors.red),
-                                  onPressed: () {},
-                                  child: Text('Latte'),
-                                ))),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Expanded(
-                            child: Container(
-                                height: 100,
-                                padding: EdgeInsets.all(5),
-                                child: TextButton(
-                                  style: TextButton.styleFrom(
-                                      primary: Colors.white,
-                                      backgroundColor: Colors.red),
-                                  onPressed: () {},
-                                  child: Text('Chocolate'),
-                                ))),
-                        Expanded(
-                            child: Container(
-                                height: 100,
-                                padding: EdgeInsets.all(5),
-                                child: TextButton(
-                                  style: TextButton.styleFrom(
-                                      primary: Colors.white,
-                                      backgroundColor: Colors.red),
-                                  onPressed: () {},
-                                  child: Text('Latte & Chocolate'),
-                                ))),
-                      ],
-                    ),
-                    SizedBox(height: 50),
-                  ]),
-            ),
+            child: Column(children: <Widget>[
+          Container(
+            padding: EdgeInsets.all(20.0),
+            child: Column(children: <Widget>[
+              SizedBox(
+                height: 20,
+              ),
+              FittedBox(
+                  fit: BoxFit.fitWidth,
+                  child: Text(
+                    accAddr,
+                    style: TextStyle(fontSize: 20),
+                  )),
+              SizedBox(
+                height: 16,
+              ),
+              Text(
+                "Balance:",
+                style: TextStyle(fontSize: 20.0),
+              ),
+              Text(
+                balance,
+                style: TextStyle(fontSize: 20.0),
+              ),
+              SizedBox(
+                height: 16,
+              ),
+              Text(
+                'Coffe Machine Address:',
+                style: TextStyle(fontSize: 20.0),
+              ),
+              FittedBox(
+                  fit: BoxFit.fitWidth,
+                  child: Text(
+                    this._machineAddr,
+                    style: TextStyle(fontSize: 20),
+                  )),
+              SizedBox(
+                height: 16,
+              ),
+              Row(
+                children: [
+                  Expanded(
+                      child: Container(
+                          height: 100,
+                          padding: EdgeInsets.all(5),
+                          child: TextButton(
+                            style: TextButton.styleFrom(
+                                primary: Colors.white,
+                                backgroundColor: Colors.red),
+                            onPressed: () {},
+                            child: Text('Capuccino'),
+                          ))),
+                  Expanded(
+                      child: Container(
+                          height: 100,
+                          padding: EdgeInsets.all(5),
+                          child: TextButton(
+                            style: TextButton.styleFrom(
+                                primary: Colors.white,
+                                backgroundColor: Colors.red),
+                            onPressed: () {},
+                            child: Text('Latte'),
+                          ))),
+                ],
+              ),
+              Row(
+                children: [
+                  Expanded(
+                      child: Container(
+                          height: 100,
+                          padding: EdgeInsets.all(5),
+                          child: TextButton(
+                            style: TextButton.styleFrom(
+                                primary: Colors.white,
+                                backgroundColor: Colors.red),
+                            onPressed: () {},
+                            child: Text('Chocolate'),
+                          ))),
+                  Expanded(
+                      child: Container(
+                          height: 100,
+                          padding: EdgeInsets.all(5),
+                          child: TextButton(
+                            style: TextButton.styleFrom(
+                                primary: Colors.white,
+                                backgroundColor: Colors.red),
+                            onPressed: () {},
+                            child: Text('Latte & Chocolate'),
+                          ))),
+                ],
+              ),
+              SizedBox(height: 50),
+            ]),
           ),
         ])));
   }

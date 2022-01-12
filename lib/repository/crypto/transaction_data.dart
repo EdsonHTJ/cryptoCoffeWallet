@@ -17,8 +17,8 @@ class TransactionData {
 
   factory TransactionData.fromJson(Map<String, dynamic> json) {
     return TransactionData(
-        to: json['ownerAddress'],
-        from: json['toAddress'],
+        to: json['toAddress'],
+        from: json['ownerAddress'],
         token: json['contractData']["contract_address"],
         amount: json['contractData']["amount"],
         isConfirmed: json['confirmed'],

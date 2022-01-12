@@ -1,8 +1,10 @@
+import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:j8coffe/models/buyoptions.dart';
 import 'package:j8coffe/presentation/screens/buycoffe.dart';
 import 'package:j8coffe/repository/crypto/trx.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
@@ -69,8 +71,10 @@ class _QRScreen extends State<QRScreen> {
     controller.scannedDataStream.listen((scanData) {
       setState(() {
         print(scanData.code);
+        //var resJson = (jsonDecode(scanData.code!) as Map<String, dynamic>);
+        //var plist = BuyOptions.fromJson(resJson);
         print(validateAddress(scanData.code!));
-        if(validateAddress(scanData.code!)) {
+        if (validateAddress(scanData.code!)) {
           controller!.pauseCamera();
           _navigateToNextScreen(context, scanData.code!);
         }
@@ -96,6 +100,6 @@ class _QRScreen extends State<QRScreen> {
 }
 
 void _navigateToNextScreen(BuildContext context, String addr) {
-    Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => BuyCoffeScreen(addr)));
-  }
+  Navigator.of(context)
+      .push(MaterialPageRoute(builder: (context) => BuyCoffeScreen(addr)));
+}
