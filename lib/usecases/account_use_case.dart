@@ -3,11 +3,9 @@ import 'package:j8coffe/repository/userdata/user_data.dart';
 
 import '../repository/crypto/trx.dart';
 
-String _path = "m/44'/195'/0'/0/0";
-
 void addAccount() {
   var udata = UserData();
-  udata.addAcc(_path);
+  udata.addAcc();
 }
 
 Future<String> getAddr() async {

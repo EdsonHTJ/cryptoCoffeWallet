@@ -21,7 +21,8 @@ class UserData {
     });
   }
 
-  void addAcc(String path) {
+  void addAcc() {
+    var path = getVaultPath(_accList.length);
     _accList.add(TrxAccount(this._mnemo, path));
   }
 

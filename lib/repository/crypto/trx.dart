@@ -40,6 +40,10 @@ class SendResult {
   }
 }
 
+String getVaultPath(int id) {
+  return "m/44'/195'/0'/0/" + id.toString();
+}
+
 bool validateAddress(String addr) {
   try {
     var addrBytes = Uint8List.fromList(b58.Base58Decode(addr));
