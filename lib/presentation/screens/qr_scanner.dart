@@ -72,12 +72,14 @@ class _QRScreen extends State<QRScreen> {
       setState(() {
         print(scanData.code);
         var resJson = (jsonDecode(scanData.code!) as Map<String, dynamic>);
+
         var plist = BuyOptions.fromJson(resJson);
         print(validateAddress(plist.address));
         if (validateAddress(plist.address)) {
           controller!.pauseCamera();
           _navigateToNextScreen(context, plist);
         }
+
         result = scanData;
       });
     });

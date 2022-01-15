@@ -42,7 +42,7 @@ class _SendScreenState extends State<SendScreen> {
   void parseAndSendTrx() {
     if (_state == 0) {
       double amount = double.parse(_amountCtrl.text);
-      _requestPinToSend(context, amount);
+      _requestPinToSend(context, _addrCtrl.text, amount);
     }
   }
 
@@ -133,11 +133,11 @@ class _SendScreenState extends State<SendScreen> {
         .push(MaterialPageRoute(builder: (context) => SucessScreen()));
   }
 
-  void _requestPinToSend(BuildContext context, double amount) {
+  void _requestPinToSend(BuildContext context, String to, double amount) {
     Navigator.of(context).push(MaterialPageRoute(
         builder: (context) => UnlockScreen((context) {
               try {
-                accCtrl.sendTrx(_addrCtrl.text, amount).then((value) => {
+                accCtrl.sendTrx(to, amount).then((value) => {
                       if (value == null)
                         {throw -1}
                       else if (value.success)
