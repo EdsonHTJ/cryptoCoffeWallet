@@ -71,12 +71,12 @@ class _QRScreen extends State<QRScreen> {
     controller.scannedDataStream.listen((scanData) {
       setState(() {
         print(scanData.code);
-        //var resJson = (jsonDecode(scanData.code!) as Map<String, dynamic>);
-        //var plist = BuyOptions.fromJson(resJson);
-        print(validateAddress(scanData.code!));
-        if (validateAddress(scanData.code!)) {
+        var resJson = (jsonDecode(scanData.code!) as Map<String, dynamic>);
+        var plist = BuyOptions.fromJson(resJson);
+        print(validateAddress(plist.address));
+        if (validateAddress(plist.address)) {
           controller!.pauseCamera();
-          _navigateToNextScreen(context, scanData.code!);
+          _navigateToNextScreen(context, plist);
         }
         result = scanData;
       });
@@ -99,7 +99,7 @@ class _QRScreen extends State<QRScreen> {
   }
 }
 
-void _navigateToNextScreen(BuildContext context, String addr) {
+void _navigateToNextScreen(BuildContext context, BuyOptions bOpt) {
   Navigator.of(context)
-      .push(MaterialPageRoute(builder: (context) => BuyCoffeScreen(addr)));
+      .push(MaterialPageRoute(builder: (context) => BuyCoffeScreen(bOpt)));
 }

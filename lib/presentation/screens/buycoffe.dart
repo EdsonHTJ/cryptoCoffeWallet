@@ -1,26 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:j8coffe/models/buyoptions.dart';
 import 'package:j8coffe/usecases/account_use_case.dart' as accCtrl;
 import 'package:j8coffe/presentation/screens/success.dart';
 import 'package:j8coffe/presentation/screens/unlock.dart';
 
 class BuyCoffeScreen extends StatefulWidget {
-  String _machineAddr = "";
-  BuyCoffeScreen(String addr) {
-    this._machineAddr = addr;
+  BuyOptions? _pList;
+  BuyCoffeScreen(BuyOptions plist) {
+    this._pList = plist;
   }
 
   @override
-  _BuyCoffeScreenState createState() => _BuyCoffeScreenState(this._machineAddr);
+  _BuyCoffeScreenState createState() => _BuyCoffeScreenState(this._pList!);
 }
 
 class _BuyCoffeScreenState extends State<BuyCoffeScreen> {
   TextEditingController _addrCtrl = new TextEditingController();
   TextEditingController _amountCtrl = new TextEditingController();
 
-  String _machineAddr = "";
-  _BuyCoffeScreenState(String addr) {
-    this._machineAddr = addr;
+  BuyOptions? _bOpts;
+  _BuyCoffeScreenState(BuyOptions addr) {
+    this._bOpts = addr;
   }
 
   String accAddr = "Loading";
@@ -93,7 +94,7 @@ class _BuyCoffeScreenState extends State<BuyCoffeScreen> {
               FittedBox(
                   fit: BoxFit.fitWidth,
                   child: Text(
-                    this._machineAddr,
+                    this._bOpts!.address,
                     style: TextStyle(fontSize: 20),
                   )),
               SizedBox(
