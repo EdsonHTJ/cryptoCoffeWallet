@@ -183,24 +183,13 @@ class TrxAccount {
     signer.init(true, PrivateKeyParameter(key));
     var sig = signer.generateSignature(message) as ECSignature;
 
+    int recoveryId = 0;
     if (sig.s.compareTo(_halfCurveOrder) > 0) {
       final canonicalisedS = params.n - sig.s;
       sig = ECSignature(sig.r, canonicalisedS);
+      recoveryId ^= 1;
     }
 
-    int recoveryId = -1;
-    for (var i = 0; i < 2; i++) {
-      final k = _recoverPublicKeyFromSignature(i, sig.r, sig.s, message);
-      if (ListEquality().equals(k, this._pubKey.sublist(1))) {
-        recoveryId = i;
-        break;
-      }
-    }
-
-    if (recoveryId == -1) {
-      throw Exception(
-          'Could not construct a recoverable key. This should never happen');
-    }
     var recId = new Uint8List(1);
     recId[0] = recoveryId;
     var b = BytesBuilder();

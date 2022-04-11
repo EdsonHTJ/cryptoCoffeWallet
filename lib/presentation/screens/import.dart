@@ -35,7 +35,7 @@ class _ImportScreenState extends State<ImportScreen> {
           TextButton(
             child: const Text('confirm'),
             onPressed: () async {
-              SecureStorage.setMnemonic(mnemo);
+              SecureStorage.setMnemonic(mnemo, pin);
               SecureStorage.setPin(pin);
               var pincheck = await SecureStorage.validatePin(pin);
               var mnem = await SecureStorage.getMnemonic();

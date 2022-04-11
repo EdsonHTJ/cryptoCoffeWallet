@@ -8,7 +8,7 @@ class SecureStorage {
   static final _keyMnem = "mnemonic";
   static final _keyPin = "pin";
 
-  static Future setMnemonic(String mnemonic) async {
+  static Future setMnemonic(String mnemonic, pin) async {
     await _storage.write(key: _keyMnem, value: mnemonic);
   }
 
