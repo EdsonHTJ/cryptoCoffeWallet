@@ -3,8 +3,9 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:bip39/bip39.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart' as fss;
-import 'package:encrypt/encrypt.dart' ;
+import 'package:encrypt/encrypt.dart' as enc;
 import 'package:pointycastle/digests/sha256.dart' as sha;
 import 'package:pointycastle/pointycastle.dart';
 
@@ -15,9 +16,11 @@ class SecureStorage {
   static final _keyPin = "pin";
   static final _keyIv = "iv";
 
-  static Future setMnemonic(String mnemonic, pin) async {
-    final encrypter = Encrypter(AES(Key(pin)));
-    final iv = IV.fromSecureRandom(16);
+  static Future setMnemonic(String mnemonic, String pin) async {
+    Digest sha2 = new Digest("SHA-256");
+    final key = sha2.process(Uint8List.fromList((pin + "salt").codeUnits));
+    final encrypter = enc.Encrypter(enc.AES(enc.Key(key)));
+    final iv = enc.IV.fromSecureRandom(16);
     final encrypted = encrypter.encrypt(mnemonic, iv: iv);
 
     await _storage.write(key: _keyMnem, value: encrypted.base64);
@@ -39,14 +42,16 @@ class SecureStorage {
     }
   }
 
-  static Future<String> getMnemonic(pin) async {
+  static Future<String> getMnemonic(String pin) async {
     try {
       final mnemEnc64 = (await _storage.read(key: _keyMnem));
       final iv64 = (await _storage.read(key: _keyIv));
-      final mnemEnc = Encrypted.fromBase64(mnemEnc64!);
-      final iv = IV.fromBase64(iv64!);
+      final mnemEnc = enc.Encrypted.fromBase64(mnemEnc64!);
+      final iv = enc.IV.fromBase64(iv64!);
 
-      final encrypter = Encrypter(AES(Key(pin)));
+      Digest sha2 = new Digest("SHA-256");
+      final key = sha2.process(Uint8List.fromList((pin + "salt").codeUnits));
+      final encrypter = enc.Encrypter(enc.AES(enc.Key(key)));
       final mnem = encrypter.decrypt(mnemEnc, iv: iv);
 
       return mnem;
@@ -57,12 +62,12 @@ class SecureStorage {
 
   static Future<bool> validatePin(String pin) async {
     try {
-      var b64Pin = (await _storage.read(key: _keyPin)) ?? '';
+      var b64Pin = await _storage.read(key: _keyPin);
 
       Digest sha2 = new Digest("SHA-256");
       var hsPin = sha2.process(Uint8List.fromList(pin.codeUnits));
-      var decodedPin = base64Decode(b64Pin);
-      return hsPin == decodedPin;
+      var decodedPin = base64Decode(b64Pin!);
+      return listEquals(hsPin, decodedPin);
     } catch (e) {
       return false;
     }
