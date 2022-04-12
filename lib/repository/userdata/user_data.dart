@@ -16,7 +16,7 @@ class UserData {
   Future<void> restoreData(String pin) async {
     await SecureStorage.validatePin(pin).then((bool value) async {
       if (value) {
-        _mnemo = await SecureStorage.getMnemonic();
+        _mnemo = await SecureStorage.getMnemonic(pin);
       }
     });
   }

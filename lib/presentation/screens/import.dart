@@ -1,10 +1,11 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:bip39/bip39.dart' as bip39;
 import 'package:j8coffe/presentation/screens/unlock.dart';
 import 'package:j8coffe/repository/utils/memory_utils.dart';
 import 'package:j8coffe/presentation/components/dialog.dart';
 import 'package:flutter/services.dart';
-
 import 'base.dart';
 
 class ImportScreen extends StatefulWidget {
@@ -38,7 +39,7 @@ class _ImportScreenState extends State<ImportScreen> {
               SecureStorage.setMnemonic(mnemo, pin);
               SecureStorage.setPin(pin);
               var pincheck = await SecureStorage.validatePin(pin);
-              var mnem = await SecureStorage.getMnemonic();
+              var mnem = await SecureStorage.getMnemonic(pin);
               if ((mnem == mnemo) && pincheck) {
                 _isConfirmed = true;
               }

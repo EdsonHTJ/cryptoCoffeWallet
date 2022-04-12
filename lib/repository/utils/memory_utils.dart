@@ -1,25 +1,55 @@
+import 'dart:convert';
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:bip39/bip39.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart' as fss;
+import 'package:encrypt/encrypt.dart' ;
+import 'package:pointycastle/digests/sha256.dart' as sha;
+import 'package:pointycastle/pointycastle.dart';
+
 
 class SecureStorage {
   static final _storage = fss.FlutterSecureStorage();
   static final _keyMnem = "mnemonic";
   static final _keyPin = "pin";
+  static final _keyIv = "iv";
 
   static Future setMnemonic(String mnemonic, pin) async {
-    await _storage.write(key: _keyMnem, value: mnemonic);
+    final encrypter = Encrypter(AES(Key(pin)));
+    final iv = IV.fromSecureRandom(16);
+    final encrypted = encrypter.encrypt(mnemonic, iv: iv);
+
+    await _storage.write(key: _keyMnem, value: encrypted.base64);
+    await _storage.write(key: _keyIv, value: iv.base64);
   }
 
   static Future setPin(String pin) async {
-    await _storage.write(key: _keyPin, value: pin);
+    Digest sha2 = new Digest("SHA-256");
+    var data = sha2.process(Uint8List.fromList(pin.codeUnits));
+    await _storage.write(key: _keyPin, value: base64Encode(data));
   }
 
-  static Future<String> getMnemonic() async {
+  static Future<String> getPin() async {
+    try{
+      final pinHash = (await _storage.read(key: _keyPin));
+      return pinHash ?? '';
+    } catch (e) {
+      return '';
+    }
+  }
+
+  static Future<String> getMnemonic(pin) async {
     try {
-      var mnem = (await _storage.read(key: _keyMnem));
-      return mnem ?? '';
+      final mnemEnc64 = (await _storage.read(key: _keyMnem));
+      final iv64 = (await _storage.read(key: _keyIv));
+      final mnemEnc = Encrypted.fromBase64(mnemEnc64!);
+      final iv = IV.fromBase64(iv64!);
+
+      final encrypter = Encrypter(AES(Key(pin)));
+      final mnem = encrypter.decrypt(mnemEnc, iv: iv);
+
+      return mnem;
     } catch (e) {
       return '';
     }
@@ -27,16 +57,20 @@ class SecureStorage {
 
   static Future<bool> validatePin(String pin) async {
     try {
-      var stpin = (await _storage.read(key: _keyPin)) ?? '';
-      return stpin == pin;
+      var b64Pin = (await _storage.read(key: _keyPin)) ?? '';
+
+      Digest sha2 = new Digest("SHA-256");
+      var hsPin = sha2.process(Uint8List.fromList(pin.codeUnits));
+      var decodedPin = base64Decode(b64Pin);
+      return hsPin == decodedPin;
     } catch (e) {
       return false;
     }
   }
 
   static Future<bool> isInit() async {
-    var mnem = await getMnemonic();
-    return validateMnemonic(mnem);
+    var pin = await getPin();
+    return pin != '';
   }
 }
 /*
