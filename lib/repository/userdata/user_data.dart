@@ -13,6 +13,18 @@ class UserData {
 
   UserData._internal();
 
+  bool mnemonicExists() {
+    return _mnemo.isNotEmpty;
+  }
+
+  void setMnemonic(String mnemo) {
+    _mnemo = mnemo;
+  }
+
+  bool checkMnemonic(String mnemo) {
+    return _mnemo == mnemo;
+  }
+
   Future<void> restoreData(String pin) async {
     await SecureStorage.validatePin(pin).then((bool value) async {
       if (value) {

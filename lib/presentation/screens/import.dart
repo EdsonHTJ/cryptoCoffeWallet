@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:bip39/bip39.dart' as bip39;
 import 'package:j8coffe/presentation/screens/unlock.dart';
+import 'package:j8coffe/repository/userdata/user_data.dart';
 import 'package:j8coffe/repository/utils/memory_utils.dart';
 import 'package:j8coffe/presentation/components/dialog.dart';
 import 'package:flutter/services.dart';
@@ -18,10 +19,18 @@ class _ImportScreenState extends State<ImportScreen> {
   TextEditingController _pinController = new TextEditingController();
 
   bool _isConfirmed = false;
+  String title = UserData().mnemonicExists()
+      ? 'Please confirm the BIP39 mnemonic:'
+      : 'Please insert the BIP39 mnemonic:';
   void _saveMnemo() {
     String mnemo = _mnemonicController.text;
     String pin = _pinController.text;
     bool isValid = bip39.validateMnemonic(mnemo);
+    if (UserData().mnemonicExists()) {
+      if (!UserData().checkMnemonic(mnemo)) {
+        isValid = false;
+      }
+    }
     if (isValid) {
       if (_isConfirmed) {
         _navigateToNextScreen(context);
@@ -74,7 +83,7 @@ class _ImportScreenState extends State<ImportScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Text(
-                  'Please insert the BIP39 mnemonic:',
+                  title,
                   style: TextStyle(fontSize: 20.0),
                 ),
                 SizedBox(

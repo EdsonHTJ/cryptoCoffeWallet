@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:j8coffe/presentation/screens/import.dart';
+import 'package:j8coffe/presentation/screens/new.dart';
 import 'package:j8coffe/presentation/screens/send.dart';
 import 'package:j8coffe/presentation/screens/unlock.dart';
 
@@ -61,9 +62,10 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  void _navigateToNextScreen(BuildContext context) {
-    Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => ImportScreen()));
+  void _navigateToNextScreen(BuildContext context, bool isNew) {
+    var nextScreen = isNew ? NewScreen() : ImportScreen();
+    Navigator.of(context)
+        .pushReplacement(MaterialPageRoute(builder: (context) => nextScreen));
   }
 
   @override
@@ -86,7 +88,9 @@ class _MyHomePageState extends State<MyHomePage> {
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  _navigateToNextScreen(context, true);
+                },
                 child: const Text('Start a New TRX Account'),
                 style: ButtonStyle(),
               ),
@@ -95,7 +99,7 @@ class _MyHomePageState extends State<MyHomePage> {
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: () {
-                  _navigateToNextScreen(context);
+                  _navigateToNextScreen(context, false);
                 },
                 child: const Text('Import a TRX Account'),
                 style: ButtonStyle(),
