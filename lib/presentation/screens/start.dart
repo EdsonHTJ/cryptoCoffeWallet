@@ -37,6 +37,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.red,
         canvasColor: Color.fromARGB(150, 0x2A, 0x2b, 0x37),
         brightness: Brightness.dark,
+        fontFamily: "FiraSans"
       ),
       home: _homepage,
     );

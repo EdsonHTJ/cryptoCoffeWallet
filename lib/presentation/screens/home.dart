@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:j8coffe/presentation/components/accountCard.dart';
 import 'package:j8coffe/usecases/account_use_case.dart' as accCtrl;
 import 'package:j8coffe/repository/crypto/transaction_data.dart';
 import 'package:j8coffe/presentation/components/tx_adapter.dart';
@@ -48,23 +49,7 @@ class _HomeScreenState extends State<HomeScreen> {
               SizedBox(
                 height: 50,
               ),
-              FittedBox(
-                  fit: BoxFit.fitWidth,
-                  child: Text(
-                    accAddr,
-                    style: TextStyle(fontSize: 20),
-                  )),
-              SizedBox(
-                height: 16,
-              ),
-              Text(
-                "Balance:",
-                style: TextStyle(fontSize: 20.0),
-              ),
-              Text(
-                balance,
-                style: TextStyle(fontSize: 20.0),
-              ),
+              accountCard(accAddr, balance),
               SizedBox(height: 20),
               //txList()
               Expanded(child: transactionListView(txList))
