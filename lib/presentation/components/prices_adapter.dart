@@ -5,7 +5,6 @@ import 'package:j8coffe/repository/crypto/transaction_data.dart';
 
 ListView pricesListView(List<BuyOption> bOpt, Function onClick) {
   return ListView.builder(
-      padding: const EdgeInsets.all(20),
       itemCount: bOpt.length,
       itemBuilder: (BuildContext context, int index) {
         return Column(children: [
@@ -24,7 +23,10 @@ Widget _priceAdapter(BuyOption value, Function onClick) {
         onClick(value);
       },
       child: Container(
-          color: Colors.red,
+           decoration: BoxDecoration(
+            border: Border.all(color: Colors.red),
+              borderRadius: BorderRadius.circular(10),
+            ),
           child: Row(children: [
             SizedBox(
               width: 10,

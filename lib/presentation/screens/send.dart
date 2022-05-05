@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:j8coffe/presentation/components/accountCard.dart';
 import 'package:j8coffe/usecases/account_use_case.dart' as accCtrl;
 import 'package:j8coffe/presentation/screens/success.dart';
 import 'package:j8coffe/presentation/screens/unlock.dart';
@@ -62,27 +63,7 @@ class _SendScreenState extends State<SendScreen> {
                     SizedBox(
                       height: 120,
                     ),
-                    FittedBox(
-                        fit: BoxFit.fitWidth,
-                        child: Text(
-                          accAddr,
-                          style: TextStyle(fontSize: 20),
-                        )),
-                    SizedBox(
-                      height: 16,
-                    ),
-                    Text(
-                      "Balance:",
-                      style: TextStyle(fontSize: 20.0),
-                    ),
-                    Text(
-                      balance,
-                      style: TextStyle(fontSize: 20.0),
-                    ),
-                    Text(
-                      'Recipient Addr:',
-                      style: TextStyle(fontSize: 20.0),
-                    ),
+                    accountCard(accAddr, balance),
                     SizedBox(
                       height: 16,
                     ),

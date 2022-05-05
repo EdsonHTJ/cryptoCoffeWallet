@@ -4,7 +4,7 @@ import 'package:j8coffe/repository/crypto/transaction_data.dart';
 
 ListView transactionListView(List<TransactionData> txList) {
   return ListView.builder(
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.all(1),
       itemCount: txList.length,
       itemBuilder: (BuildContext context, int index) {
         return Column(children: [
@@ -41,7 +41,7 @@ Widget _txAdapter(TransactionData value) {
       ));
 
   return Container(
-      child: Row(children: [
+    child: Row(children: [
     icon,
     Spacer(),
     Text(_txValueToString(value.amount!)),

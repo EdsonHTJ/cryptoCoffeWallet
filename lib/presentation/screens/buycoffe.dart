@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:j8coffe/models/buyoptions.dart';
+import 'package:j8coffe/presentation/components/accountCard.dart';
 import 'package:j8coffe/presentation/components/prices_adapter.dart';
 import 'package:j8coffe/usecases/account_use_case.dart' as accCtrl;
 import 'package:j8coffe/presentation/screens/success.dart';
@@ -59,27 +60,13 @@ class _BuyCoffeScreenState extends State<BuyCoffeScreen> {
         centerTitle: true,
         title: Text("Buy Coffe"),
       ),
-      body: Column(children: <Widget>[
+      body: Container(
+        padding: EdgeInsets.all(10),
+        child: Column(children: <Widget>[
         SizedBox(
           height: 20,
         ),
-        FittedBox(
-            fit: BoxFit.fitWidth,
-            child: Text(
-              accAddr,
-              style: TextStyle(fontSize: 20),
-            )),
-        SizedBox(
-          height: 16,
-        ),
-        Text(
-          "Balance:",
-          style: TextStyle(fontSize: 20.0),
-        ),
-        Text(
-          balance,
-          style: TextStyle(fontSize: 20.0),
-        ),
+        accountCard(accAddr, balance),
         SizedBox(
           height: 16,
         ),
@@ -99,7 +86,7 @@ class _BuyCoffeScreenState extends State<BuyCoffeScreen> {
         Expanded(child: pricesListView(this._bOpts!.priceList, onItemClick)),
         SizedBox(height: 50),
       ]),
-    );
+    ));
   }
 
   void _navigateToNextScreen(BuildContext context) {

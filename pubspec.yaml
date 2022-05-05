@@ -74,7 +74,7 @@ flutter:
   fonts:
      - family: FiraSans
        fonts:
-         - asset: assets\fonts\FiraSans-Medium.ttf
+         - asset: assets/fonts/FiraSans-Medium.ttf
   #         style: italic
   #   - family: Trajan Pro
   #     fonts:

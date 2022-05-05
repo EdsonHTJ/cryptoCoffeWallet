@@ -52,7 +52,16 @@ class _HomeScreenState extends State<HomeScreen> {
               accountCard(accAddr, balance),
               SizedBox(height: 20),
               //txList()
-              Expanded(child: transactionListView(txList))
+              Expanded(child: 
+              Container(
+                padding: EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                border: Border.all(color: Colors.red),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: transactionListView(txList))),
+                
+        
             ])));
   }
 
