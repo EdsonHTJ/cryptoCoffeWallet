@@ -46,7 +46,10 @@ class _NewScreenState extends State<NewScreen> {
                 SizedBox(
                   height: 20,
                 ),
-                Container(height: 200, child: bip39List(mnemonic)),
+                Container(
+                    height: 400,
+                    width: double.infinity,
+                    child: bip39List(mnemonic)),
                 SizedBox(
                   height: 20,
                 ),

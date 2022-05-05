@@ -1,8 +1,20 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:j8coffe/repository/crypto/transaction_data.dart';
 
-ListView transactionListView(List<TransactionData> txList) {
+Widget transactionListView(List<TransactionData> txList) {
+  if (txList.isEmpty) {
+    return Container(
+      width: double.infinity,
+      child: Center(
+          child: Text(
+        'No transactions to show 💸',
+        textAlign: TextAlign.center,
+        style: TextStyle(fontSize: 30),
+      )),
+    );
+  }
   return ListView.builder(
       padding: const EdgeInsets.all(1),
       itemCount: txList.length,
@@ -41,7 +53,7 @@ Widget _txAdapter(TransactionData value) {
       ));
 
   return Container(
-    child: Row(children: [
+      child: Row(children: [
     icon,
     Spacer(),
     Text(_txValueToString(value.amount!)),

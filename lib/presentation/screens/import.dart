@@ -135,7 +135,7 @@ class _ImportScreenState extends State<ImportScreen> {
 
 void _navigateToBaseScreen(BuildContext context) {
   Navigator.of(context)
-      .pushReplacement(MaterialPageRoute(builder: (context) => BaseScreen()));
+      .push(MaterialPageRoute(builder: (context) => BaseScreen()));
 }
 
 void _navigateToNextScreen(BuildContext context) {

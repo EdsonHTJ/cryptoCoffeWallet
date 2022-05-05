@@ -11,8 +11,8 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   MyApp(bool isInit) {
     void _navigateToBaseScreen(BuildContext context) {
-      Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => BaseScreen()));
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (context) => BaseScreen()));
     }
 
     if (isInit) {
@@ -25,20 +25,19 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.red,
-        canvasColor: Color.fromARGB(150, 0x2A, 0x2b, 0x37),
-        brightness: Brightness.dark,
-        fontFamily: "FiraSans"
-      ),
+          // This is the theme of your application.
+          //
+          // Try running your application with "flutter run". You'll see the
+          // application has a blue toolbar. Then, without quitting the app, try
+          // changing the primarySwatch below to Colors.green and then invoke
+          // "hot reload" (press "r" in the console where you ran "flutter run",
+          // or simply save your changes to "hot reload" in a Flutter IDE).
+          // Notice that the counter didn't reset back to zero; the application
+          // is not restarted.
+          primarySwatch: Colors.red,
+          canvasColor: Color.fromARGB(150, 0x2A, 0x2b, 0x37),
+          brightness: Brightness.dark,
+          fontFamily: "FiraSans"),
       home: _homepage,
     );
   }
@@ -66,7 +65,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void _navigateToNextScreen(BuildContext context, bool isNew) {
     var nextScreen = isNew ? NewScreen() : ImportScreen();
     Navigator.of(context)
-        .pushReplacement(MaterialPageRoute(builder: (context) => nextScreen));
+        .push(MaterialPageRoute(builder: (context) => nextScreen));
   }
 
   @override
